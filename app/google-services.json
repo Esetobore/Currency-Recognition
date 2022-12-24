@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "405644035554",
+    "project_id": "currency-recognition-f2c6a",
+    "storage_bucket": "currency-recognition-f2c6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405644035554:android:51b6ebf74d39c74132a5bb",
+        "android_client_info": {
+          "package_name": "com.example.currencyrecognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405644035554-ancneth567ucj9hv64ltqcoha0ceu9rf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEDkwL0_hXsYo15xXORMDSaxdlESA_bG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405644035554-ancneth567ucj9hv64ltqcoha0ceu9rf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
