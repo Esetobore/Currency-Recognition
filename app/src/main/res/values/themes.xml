@@ -16,7 +16,7 @@
     <!-- Light mode -->
     <!-- Screen background if light mode on-->
     <style name = "SCREEN">
-        <item name= "android:background">#FFFF08</item>
+        <item name= "android:background">#7DBC9E</item>
     </style>
     <!--Texts background if light mode on -->
     <style name="TEXT">
