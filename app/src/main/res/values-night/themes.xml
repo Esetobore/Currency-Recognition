@@ -13,4 +13,22 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <!-- Dark mode -->
+    <!-- Screen background if dark mode on-->
+    <style name = "SCREEN">
+        <item name= "android:background">#000F24</item>
+    </style>
+    <!--Texts background if dark mode on -->
+    <style name="TEXT">
+        <item name = "android:textColor">#FFFF</item>
+    </style>
+    <!--button background if dark node on -->
+    <style name="BUTTON">
+        <item name = "android:background">#FFFF</item>
+        <item name="android:textColor">#FFFF</item>
+    </style>
+    <!--CardView background if Dark mode on -->
+    <style name="CARD">
+        <item name = "cardBackgroundColor">#000F24</item>
+    </style>
 </resources>

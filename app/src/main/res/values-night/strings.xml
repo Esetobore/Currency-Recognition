@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="IntroText">Welcome to C E C P , the Currency Detector Application for the visually impaired people. To detect the currency with high accuracy , place the note over a flat surface and scan it using the camera.</string>
+</resources>
