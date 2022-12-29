@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.currencyrecognition.CameraActivity
 import com.example.currencyrecognition.MainActivity
 import com.example.currencyrecognition.R
+import com.example.currencyrecognition.utils.Constants.Companion.SPLASHDELAY
 import kotlinx.android.synthetic.main.activity_main_splash.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -24,7 +25,7 @@ class MainSplash : AppCompatActivity() {
         }
     }
     private suspend fun intent(){
-        delay(6000)
+        delay(SPLASHDELAY)
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
