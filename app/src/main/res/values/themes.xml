@@ -22,13 +22,16 @@
     <style name="TEXT">
         <item name = "android:textColor">@color/black</item>
     </style>
+    <style name="TEXT_CARD">
+        <item name = "android:textColor">#FFFF</item>
+    </style>
     <!--button background if light node on -->
     <style name="BUTTON">
-        <item name = "android:background">#FFFF</item>
+        <item name = "android:background">#000000</item>
         <item name="android:textColor">#FFFF</item>
     </style>
     <!--CardView background if light mode on -->
     <style name="CARD">
-        <item name = "cardBackgroundColor">#000F24</item>
+        <item name = "cardBackgroundColor">#4E5053</item>
     </style>
 </resources>

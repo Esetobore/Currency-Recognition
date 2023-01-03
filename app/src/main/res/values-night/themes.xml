@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
+        <color name="button">#808080</color>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
@@ -22,6 +23,9 @@
     <style name="TEXT">
         <item name = "android:textColor">#FFFF</item>
     </style>
+    <style name="TEXT_CARD">
+        <item name = "android:textColor">#000000</item>
+    </style>
     <!--button background if dark node on -->
     <style name="BUTTON">
         <item name = "android:background">#FFFF</item>
@@ -29,6 +33,6 @@
     </style>
     <!--CardView background if Dark mode on -->
     <style name="CARD">
-        <item name = "cardBackgroundColor">#000F24</item>
+        <item name = "cardBackgroundColor">#C1CAD6</item>
     </style>
 </resources>
