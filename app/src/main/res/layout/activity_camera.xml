@@ -10,25 +10,29 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/take_pic_btn"
+        style="@style/CARD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="26dp"
-        app:cardCornerRadius="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
         android:elevation="5dp"
-        style="@style/CARD">
+        app:cardCornerRadius="10dp">
+
         <TextView
+            style="@style/TEXT_CARD"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Take Picture"
-            android:textSize="28sp"
             android:layout_marginLeft="12dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            style="@style/TEXT_CARD"
-            android:textStyle="bold"/>
+            android:text="Take Picture"
+            android:textSize="28sp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
     <ImageView
         android:layout_width="370sp"
