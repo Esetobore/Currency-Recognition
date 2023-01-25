@@ -28,7 +28,7 @@ Currency Recognition is an application that catered to helping visually impaired
 ## How to Run the app
 **From the Apk**
 *  First step is to download the zip file from the link above 
-*  Second step get a extract the app from the zip file recommend you use zarchives
+*  Second step extract the app from the zip file.
 *  Third step is to install and run the app. Everything else is explained as you go along in the app
 
 **From the Appetize link**
