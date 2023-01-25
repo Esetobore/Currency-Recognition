@@ -70,6 +70,7 @@
         android:id="@+id/confidencesText"
         android:text="Confidences:"
         android:textStyle="bold"
+        android:visibility="invisible"
         android:textSize="20sp"
         style="@style/TEXT"
         android:layout_centerHorizontal="true"

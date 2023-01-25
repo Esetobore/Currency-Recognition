@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.media.ThumbnailUtils
 import android.os.Bundle
 import android.provider.MediaStore
+import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.currencyrecognition.ml.ModelUnquant
@@ -18,6 +19,7 @@ import java.nio.ByteOrder
 
 class CameraActivity : AppCompatActivity() {
     val imageSize = 224
+    private var tts : TextToSpeech? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
@@ -90,13 +92,15 @@ class CameraActivity : AppCompatActivity() {
         // Runs model inference and gets result.
         val outputs = model.process(inputFeature0)
         val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-
         result.text = outputFeature0.toString()
 
+        // likely to create a text to speech format of the applications result
+        //tts!!.speak(result.toString(), TextToSpeech.QUEUE_FLUSH, null,"")
         // Releases model resources if no longer used.
         model.close()
 
 
     }
+
 
 }
