@@ -3,9 +3,11 @@ package com.example.currencyrecognition
 import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.currencyrecognition.splash.MainSplash
+import com.example.currencyrecognition.utils.Constants
 import com.example.currencyrecognition.utils.Constants.Companion.INTROTEXT
 import com.example.currencyrecognition.utils.Constants.Companion.OPENDELAY
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +26,9 @@ class MainActivity : AppCompatActivity() {
                 textToSpeech.language = Locale.ENGLISH
                 textToSpeech.setSpeechRate(1.0f)
                 textToSpeech.speak(INTROTEXT,TextToSpeech.QUEUE_FLUSH,null)
+            }
+            if (speak == TextToSpeech.ERROR){
+                Toast.makeText(this," Error",Toast.LENGTH_SHORT).show()
             }
         })
         lifecycleScope.launch (Dispatchers.Default){

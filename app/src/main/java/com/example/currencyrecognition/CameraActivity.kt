@@ -96,6 +96,7 @@ class CameraActivity : AppCompatActivity() {
 
         // likely to create a text to speech format of the applications result
         //tts!!.speak(result.toString(), TextToSpeech.QUEUE_FLUSH, null,"")
+
         // Releases model resources if no longer used.
         model.close()
 
