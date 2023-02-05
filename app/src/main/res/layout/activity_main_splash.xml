@@ -7,13 +7,12 @@
     tools:context=".splash.MainSplash">
 
     <TextView
-        style="@style/TEXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
         android:layout_marginTop="136dp"
         android:fontFamily="@font/gabriela_alt_bold"
-        android:text="APP NAME"
+        android:text="@string/currency_recognition"
         android:textSize="38sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

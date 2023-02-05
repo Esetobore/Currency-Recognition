@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">Currency Recognition</string>
-    <string name="IntroText">Welcome to XXXX , the Currency Recognition Application for the visually impaired people. To detect the currency with high accuracy , place the note over a flat surface with good lighting and scan it using the camera.</string>
+    <string name="currency_recognition">Currency Recognition</string>
 </resources>
