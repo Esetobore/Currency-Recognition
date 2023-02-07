@@ -66,8 +66,7 @@ class CameraActivity : AppCompatActivity() {
         val model = ModelUnquant.newInstance(applicationContext)
 
         // Creates inputs for reference.
-        val inputFeature0 =
-            TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
 
         // bitmap image to bytebuffer
         val byteBuffer: ByteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3)

@@ -54,8 +54,8 @@ dependencies {
 
     // Also add the dependency for the TensorFlow Lite library and specify its version
     implementation 'org.tensorflow:tensorflow-lite:2.4.0'
-//    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
-//    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
 
 
     // Architectural Components
