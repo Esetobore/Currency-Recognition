@@ -7,6 +7,7 @@ import android.media.ThumbnailUtils
 import android.os.Bundle
 import android.provider.MediaStore
 import android.speech.tts.TextToSpeech
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.currencyrecognition.ml.ModelUnquant
@@ -15,6 +16,7 @@ import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+import java.util.*
 
 
 class CameraActivity : AppCompatActivity() {
@@ -23,14 +25,13 @@ class CameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
-
         take_pic_btn.setOnClickListener {
             permissions()
         }
     }
 
 
-    private fun permissions(){
+    fun permissions(){
         // Check camera permission if we have it.
         val checkSelfPermission = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)==
                 PackageManager.PERMISSION_GRANTED
@@ -58,11 +59,13 @@ class CameraActivity : AppCompatActivity() {
 
             imgClassificationByModel(image)
         }
+        else{
+            Toast.makeText(this, "Error",Toast.LENGTH_SHORT).show()
+        }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun imgClassificationByModel(image: Bitmap) {
-
         val model = ModelUnquant.newInstance(applicationContext)
 
         // Creates inputs for reference.
@@ -87,20 +90,31 @@ class CameraActivity : AppCompatActivity() {
                 byteBuffer.putFloat((`val` and 0xFF) * (1f / 255f))
             }
         }
+        inputFeature0.loadBuffer(byteBuffer)
 
         // Runs model inference and gets result.
         val outputs = model.process(inputFeature0)
         val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-        result.text = outputFeature0.toString()
+        val confidences = outputFeature0.floatArray
+        // find the index of the class with the biggest confidence.
+        // find the index of the class with the biggest confidence.
+        var maxPos = 0
+        var maxConfidence = 0f
+        for (i in confidences.indices) {
+            if (confidences[i] > maxConfidence) {
+                maxConfidence = confidences[i]
+                maxPos = i
+            }
+        }
+        val classes = arrayOf("100", "200", "500", "1000")
 
+        result.text = classes[maxPos]
         // likely to create a text to speech format of the applications result
-        //tts!!.speak(result.toString(), TextToSpeech.QUEUE_FLUSH, null,"")
-
+      //  tts!!.speak(result.toString(), TextToSpeech.QUEUE_FLUSH, null,"")
         // Releases model resources if no longer used.
         model.close()
-
-
     }
+
 
 
 }

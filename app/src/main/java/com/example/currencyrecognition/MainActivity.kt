@@ -1,10 +1,12 @@
 package com.example.currencyrecognition
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.currencyrecognition.splash.MainSplash
 import com.example.currencyrecognition.utils.Constants
@@ -37,7 +39,15 @@ class MainActivity : AppCompatActivity() {
     }
     private suspend fun intent(){
         delay(OPENDELAY)
-        startActivity(Intent(this,CameraActivity::class.java))
-        finish()
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)==
+            PackageManager.PERMISSION_GRANTED){
+            startActivity(Intent(this, CameraActivity::class.java))
+            finish()
+        }
+        else {
+            startActivity(Intent(this, Description::class.java))
+            finish()
+        }
+
     }
 }
