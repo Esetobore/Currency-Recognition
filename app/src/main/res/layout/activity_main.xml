@@ -13,6 +13,7 @@
         android:text="Welcome to Application for the visually impaired people. To detect the currency with high accuracy , place the note over a flat surface with good lighting and scan it using the camera."
         android:textSize="35sp"
         android:layout_marginTop="90dp"
+        android:textColor="@color/black"
         android:fontFamily="@font/gabriela_alt_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,5 +1,6 @@
 package com.example.currencyrecognition
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -44,9 +45,9 @@ class CameraActivity : AppCompatActivity() {
         }
     }
 
-    @Deprecated("Deprecated in Kotlin")
+    //@Deprecated("Deprecated in Kotlin")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 1 && resultCode == 1){
+        if (requestCode == 1 && resultCode == RESULT_OK){
             var image: Bitmap = data?.extras?.get("data") as Bitmap
             // crop the image
             val imgDimensions = Math.min(image.width, image.height)
@@ -60,11 +61,12 @@ class CameraActivity : AppCompatActivity() {
             imgClassificationByModel(image)
         }
         else{
-            Toast.makeText(this, "Error",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error Please Retry",Toast.LENGTH_LONG).show()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    @SuppressLint("DefaultLocale")
     private fun imgClassificationByModel(image: Bitmap) {
         val model = ModelUnquant.newInstance(applicationContext)
 
@@ -111,6 +113,12 @@ class CameraActivity : AppCompatActivity() {
         result.text = classes[maxPos]
         // likely to create a text to speech format of the applications result
       //  tts!!.speak(result.toString(), TextToSpeech.QUEUE_FLUSH, null,"")
+        // confidence percentage of other currencies
+        var confidenceResult: String? = ""
+        for (i in classes.indices) {
+            confidenceResult += java.lang.String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
+        }
+        confidence.text = confidenceResult
         // Releases model resources if no longer used.
         model.close()
     }

@@ -32,8 +32,9 @@ class Description : AppCompatActivity() {
         }
     }
     private suspend fun intent(){
-       delay(20000L)
+       delay(23000L)
         startActivity(Intent(this,CameraActivity::class.java))
         finish()
+
     }
 }
