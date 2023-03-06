@@ -18,14 +18,14 @@ class MainSplash : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_splash)
 
-        lottie.animate().translationY(1500f).setDuration(1000).startDelay = 5000
+        lottie.animate().translationY(1500f).setDuration(1000).startDelay = 8000
 
         lifecycleScope.launch(Dispatchers.Default){
             intent()
         }
     }
     private suspend fun intent(){
-        delay(SPLASHDELAY)
+        delay(8000L)
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }

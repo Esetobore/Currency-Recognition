@@ -11,6 +11,7 @@ import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.currencyrecognition.ml.ModelUnquant
 import kotlinx.android.synthetic.main.activity_camera.*
 import org.tensorflow.lite.DataType
@@ -23,6 +24,8 @@ import java.util.*
 class CameraActivity : AppCompatActivity() {
     val imageSize = 224
     private var tts : TextToSpeech? = null
+    private val error = "Error"
+    private val noResult = "0%\n"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
@@ -46,6 +49,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     //@Deprecated("Deprecated in Kotlin")
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1 && resultCode == RESULT_OK){
             var image: Bitmap = data?.extras?.get("data") as Bitmap
@@ -54,7 +58,7 @@ class CameraActivity : AppCompatActivity() {
             // centre the image
             image = ThumbnailUtils.extractThumbnail(image, imgDimensions, imgDimensions)
             //captured image is now set on the imageview
-            imageView.setImageBitmap(image)
+        //    imageView.setImageBitmap(image)
 
             image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false)
 
@@ -110,15 +114,31 @@ class CameraActivity : AppCompatActivity() {
         }
         val classes = arrayOf("100", "200", "500", "1000")
 
-        result.text = classes[maxPos]
+
+        if(result.text == classes[maxPos]){
+            result.text = classes[maxPos]
+            imageView.setColorFilter(ContextCompat.getColor(this, R.color.green))
+        }
+        else{
+            result.text = error.toString()
+            imageView.setColorFilter(ContextCompat.getColor(this, R.color.red))
+        }
+
         // likely to create a text to speech format of the applications result
-      //  tts!!.speak(result.toString(), TextToSpeech.QUEUE_FLUSH, null,"")
+        tts!!.speak(result.toString(), TextToSpeech.QUEUE_FLUSH, null,"")
         // confidence percentage of other currencies
         var confidenceResult: String? = ""
         for (i in classes.indices) {
             confidenceResult += java.lang.String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
         }
-        confidence.text = confidenceResult
+
+        if (confidence.text == confidenceResult){
+            confidence.text = confidenceResult
+
+        }
+        else{
+            confidence.text = noResult
+        }
         // Releases model resources if no longer used.
         model.close()
     }
