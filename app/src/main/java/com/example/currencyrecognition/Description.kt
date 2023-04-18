@@ -17,6 +17,7 @@ class Description : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_description)
+
         textToSpeech = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { speak ->
             if (speak == TextToSpeech.SUCCESS) {
                 textToSpeech.language = Locale.ENGLISH
@@ -27,12 +28,14 @@ class Description : AppCompatActivity() {
                 Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show()
             }
         })
+        // another coroutine scope implementing a simple suspend function
         lifecycleScope.launch (Dispatchers.Default){
             intent()
         }
     }
+
     private suspend fun intent(){
-       delay(23000L)
+       delay(20000L)
         startActivity(Intent(this,CameraActivity::class.java))
         finish()
 

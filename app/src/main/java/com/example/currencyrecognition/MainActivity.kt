@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         textToSpeech = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { speak ->
             if (speak == TextToSpeech.SUCCESS) {
                 textToSpeech.language = Locale.ENGLISH
@@ -33,10 +34,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show()
             }
         })
+        // another use of coroutines to implement the suspend function below
         lifecycleScope.launch (Dispatchers.Default){
             intent()
         }
     }
+
     private suspend fun intent(){
         delay(OPENDELAY)
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)==
