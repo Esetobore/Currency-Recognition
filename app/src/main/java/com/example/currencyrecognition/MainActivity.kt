@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         textToSpeech = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { speak ->
             if (speak == TextToSpeech.SUCCESS) {
-                textToSpeech.language = Locale.ENGLISH
+                textToSpeech.language = Locale.UK
                 textToSpeech.setSpeechRate(1.0f)
                 textToSpeech.speak(INTROTEXT,TextToSpeech.QUEUE_FLUSH,null)
             }

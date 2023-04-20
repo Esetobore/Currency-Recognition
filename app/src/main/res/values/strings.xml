@@ -2,6 +2,6 @@
 <resources>
     <string name="currency_recognition">Currency Recognition</string>
     <string name="app_name" />
-    <string name="Steps">Steps to Follow\n\nONE: Click the take Picture button in the bright yellow color is clicked yes to allow the app be able to use the camera\n\nTWO: Click the take picture button in the bright yellow color to open your camera and click the camera button to snap\n\nTHREE: Click ok after the image is captured then watch the magic\n</string>
+    <string name="Steps">Steps to Follow\n\nONE: Click on the take Picture button in the bright yellow color then select yes to allow the app be able to use the camera\n\nTWO: Click the take picture button in the bright yellow color to open your camera and click the camera button to snap\n\nTHREE: Click ok after the image is captured then watch the magic\n</string>
     <string name="welcome_message">Welcome to Application for the visually impaired people. To detect the currency with high accuracy , place the note over a flat surface with good lighting and scan it using the camera.</string>
 </resources>

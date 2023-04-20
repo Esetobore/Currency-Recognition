@@ -15,6 +15,7 @@ import com.example.currencyrecognition.ml.ModelUnquant
 import kotlinx.android.synthetic.main.activity_camera.*
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.util.*
@@ -22,16 +23,24 @@ import java.util.*
 
 class CameraActivity : AppCompatActivity() {
     private val imageSize = 224
-    private var tts : TextToSpeech? = null
+    private lateinit var tts : TextToSpeech
     private val noResult = "0%\n"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
+        tts = TextToSpeech(this) { status ->
+            if (status != TextToSpeech.ERROR) {
+                // set language for TextToSpeech
+                tts.language = Locale.UK
+            }
+        }
+
         // attaching the function to the "take picture" cardview onclicklistener
         take_pic_btn.setOnClickListener {
             permissions()
         }
+
     }
 
 
@@ -63,6 +72,7 @@ class CameraActivity : AppCompatActivity() {
             image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false)
 
             imgClassificationByModel(image)
+
         }
         else{
             Toast.makeText(this, "Error Please Retry",Toast.LENGTH_LONG).show()
@@ -72,74 +82,83 @@ class CameraActivity : AppCompatActivity() {
 
     @SuppressLint("DefaultLocale")
     private fun imgClassificationByModel(image: Bitmap) {
-        val model = ModelUnquant.newInstance(applicationContext)
 
-        // Creates inputs for reference.
-        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+           val model = ModelUnquant.newInstance(applicationContext)
 
-        // bitmap image to bytebuffer
-        val byteBuffer: ByteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3)
-        byteBuffer.order(ByteOrder.nativeOrder())
+           // Creates inputs for reference.
+           val inputFeature0 =
+               TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+
+           // bitmap image to bytebuffer
+           val byteBuffer: ByteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3)
+           byteBuffer.order(ByteOrder.nativeOrder())
 
 
-       // get the array of 224 * 224 pixels in the captured image
-        val intValues = IntArray(imageSize * imageSize)
-        image.getPixels(intValues, 0, image.width, 0, 0, image.width, image.height)
+           // get the array of 224 * 224 pixels in the captured image
+           val intValues = IntArray(imageSize * imageSize)
+           image.getPixels(intValues, 0, image.width, 0, 0, image.width, image.height)
 
-        // iterate over pixels and extract R, G, and B values. Add to bytebuffer. as seen from the modelTFLite
-        var pixel = 0
-        for (i in 0 until imageSize) {
-            for (j in 0 until imageSize) {
-                val `val` = intValues[pixel++] // RGB
-                byteBuffer.putFloat((`val` shr 16 and 0xFF) * (1f / 255f))
-                byteBuffer.putFloat((`val` shr 8 and 0xFF) * (1f / 255f))
-                byteBuffer.putFloat((`val` and 0xFF) * (1f / 255f))
+           // iterate over pixels and extract R, G, and B values. Add to bytebuffer. as seen from the modelTFLite
+           var pixel = 0
+           for (i in 0 until imageSize) {
+               for (j in 0 until imageSize) {
+                   val `val` = intValues[pixel++] // RGB
+                   byteBuffer.putFloat((`val` shr 16 and 0xFF) * (1f / 255f))
+                   byteBuffer.putFloat((`val` shr 8 and 0xFF) * (1f / 255f))
+                   byteBuffer.putFloat((`val` and 0xFF) * (1f / 255f))
+               }
+           }
+           inputFeature0.loadBuffer(byteBuffer)
+
+           // Runs model inference and gets result.
+           val outputs = model.process(inputFeature0)
+           val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+           val confidences = outputFeature0.floatArray
+           // find the index of the class with the biggest confidence.
+           // find the index of the class with the biggest confidence.
+           var maxPos = 0
+           var maxConfidence = 0F
+           for (i in confidences.indices) {
+               if (confidences[i] > maxConfidence) {
+                   maxConfidence = confidences[i]
+                   maxPos = i
+               }
+           }
+
+
+
+           val classes = arrayOf("100", "200", "500", "1000")
+           result.text = classes[maxPos]
+
+            val unknown = "Unknown Currency"
+            val noMatchFound = "No match Found"
+        if(maxConfidence < 78){
+            result.text = unknown
+            confidence.text = noMatchFound
+            tts.speak("Unknown Currency", TextToSpeech.QUEUE_FLUSH, null, null)
+        }
+           else {
+            val speechText = "The currency is ${classes[maxPos]} Naira"
+            tts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, null)
+
+
+            // likely to create a text to speech format of the applications result
+
+            // confidence percentage of other currencies
+            var confidenceResult: String? = ""
+            for (i in classes.indices) {
+                confidenceResult += java.lang.String.format(
+                    "%s: %.1f%%\n",
+                    classes[i],
+                    confidences[i] * 100
+                )
             }
+            confidence.text = confidenceResult
+
         }
-        inputFeature0.loadBuffer(byteBuffer)
+           // Releases model resources if no longer used.
+           model.close()
 
-        // Runs model inference and gets result.
-        val outputs = model.process(inputFeature0)
-        val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-        val confidences = outputFeature0.floatArray
-        // find the index of the class with the biggest confidence.
-        // find the index of the class with the biggest confidence.
-        var maxPos = 0
-        var maxConfidence = 0f
-        for (i in confidences.indices) {
-            if (confidences[i] > maxConfidence) {
-                maxConfidence = confidences[i]
-                maxPos = i
-            }
-        }
-        val classes = arrayOf("100", "200", "500", "1000")
-        result.text = classes[maxPos]
-
-//        if(result.text == classes[maxPos]){
-//            result.text = classes[maxPos]
-//            imageView.setColorFilter(ContextCompat.getColor(this, R.color.green))
-//        }
-//        else{
-//            imageView.setColorFilter(ContextCompat.getColor(this, R.color.red))
-//        }
-
-        // likely to create a text to speech format of the applications result
-     //   tts!!.speak(result.toString(), TextToSpeech.QUEUE_FLUSH, null,"")
-        // confidence percentage of other currencies
-        var confidenceResult: String? = ""
-        for (i in classes.indices) {
-            confidenceResult += java.lang.String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
-        }
-        confidence.text = confidenceResult
-
-//        if (confidence.text == confidenceResult){
-//            confidence.text = confidenceResult
-//        }
-//        else{
-//            confidence.text = noResult
-//        }
-        // Releases model resources if no longer used.
-        model.close()
     }
 
 

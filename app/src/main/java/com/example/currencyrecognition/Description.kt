@@ -20,7 +20,7 @@ class Description : AppCompatActivity() {
 
         textToSpeech = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { speak ->
             if (speak == TextToSpeech.SUCCESS) {
-                textToSpeech.language = Locale.ENGLISH
+                textToSpeech.language = Locale.UK
                 textToSpeech.setSpeechRate(1.0f)
                 textToSpeech.speak(DESCRIPTION,TextToSpeech.QUEUE_FLUSH,null)
             }
@@ -35,7 +35,7 @@ class Description : AppCompatActivity() {
     }
 
     private suspend fun intent(){
-       delay(20000L)
+       delay(22000L)
         startActivity(Intent(this,CameraActivity::class.java))
         finish()
 
