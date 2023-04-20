@@ -1,6 +1,6 @@
 # Currency-Recognition
 
-Currency Recognition is an application that catered to helping visually impaired people identify the fiat they possess. Note the supported currency for this application is my countries currency Naira 
+Currency Recognition(CR) is an application that catered to helping visually impaired people identify the fiat they possess. Note the supported currency for this application is my countries currency Naira 
 
 ## CodeBase
 * The Codebase was arranged in a MVVM structure with subfolders for the various parts of the application to improve scalability and easy access
@@ -9,21 +9,21 @@ Currency Recognition is an application that catered to helping visually impaired
 * **Camera Page** This page is wear the camera is found that captures the image used to identify the fiat currency.
 
 ## The Features include
-* None yet.....
+* TexttoSpeech of all descriptions and text up until the final result.
 
 
 ## Libraries Used
 * All libraries except for the default included can be seen below:
 * Coroutines
 * Tensor Flow Lite
-* Glide
 * Lifecycle Viewmodel and livedata
 
 
 ## APP Links
 **Check Challenges before proceed**
 * Website preview(Appetize.io) of Apk: <a href="">CR</a>
-* Android: Update soon...
+* Android: [Currency Recognition 3.0.zip](https://github.com/Esetobore/Currency-Recognition/files/11291099/Currency.Recognition.3.0.zip)
+
 
 ## How to Run the app
 **From the Apk**
