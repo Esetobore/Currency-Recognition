@@ -36,7 +36,7 @@ Currency Recognition(CR) is an application that catered to helping visually impa
 *  Once you click the link you are redirect and shown an app there you select a preferred phone size and click play (Recommend a bigger display for better experience).
 
 ## Challenges and Bugs
-* There was a challenge faced with converting the classified result into speech along side the unknown currency support little research and quick thinking it was fixed
+* 
 
 
 
